@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Dashboard | Cullinan Chauffeurs</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230b0b0d' width='100' height='100'/><text x='50' y='68' font-size='58' text-anchor='middle' fill='%23c6a15b' font-family='Georgia'>C</text></svg>">
+</head>
+<body class="admin-body">
+
+<!-- ===== LOCK SCREEN ===== -->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-logo">
+      <span class="logo-mark">C</span>
+      <div>
+        <div class="lock-title">CULLINAN CHAUFFEURS</div>
+        <div class="lock-sub">Booking Management Dashboard</div>
+      </div>
+    </div>
+    <h2>Staff Access</h2>
+    <p>Enter your dashboard password to manage client bookings.</p>
+    <form id="lockForm">
+      <input type="password" id="lockPassword" placeholder="Password" autocomplete="current-password">
+      <button type="submit" class="btn btn-gold">Unlock Dashboard</button>
+    </form>
+    <p class="lock-hint">Default password: <strong>admin</strong> &mdash; change it in <code>js/admin.js</code></p>
+    <a href="index.html" class="lock-back">&larr; Back to website</a>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div class="dashboard" id="dashboard" style="display:none">
+
+  <aside class="dash-side">
+    <a href="index.html" class="logo dash-logo">
+      <span class="logo-mark">C</span>
+      <span class="logo-text">
+        <span class="logo-name">CULLINAN</span>
+        <span class="logo-sub">DASHBOARD</span>
+      </span>
+    </a>
+    <nav class="dash-nav">
+      <span class="dash-nav-item active">Bookings</span>
+    </nav>
+    <div class="dash-side-bottom">
+      <button class="btn btn-line btn-sm" id="lockBtn">Lock Dashboard</button>
+      <a href="index.html" class="btn btn-ghost-dark btn-sm">View Website</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <header class="dash-header">
+      <div>
+        <h1>Booking Management</h1>
+        <p>View, confirm and manage all client reservations submitted through the website.</p>
+      </div>
+      <div class="dash-header-actions">
+        <button class="btn btn-line btn-sm" id="exportBtn">Export CSV</button>
+        <button class="btn btn-ghost-dark btn-sm" id="seedBtn">Load Demo Data</button>
+      </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="dash-stats">
+      <div class="dash-stat"><span class="ds-num" id="statTotal">0</span><span class="ds-label">Total Bookings</span></div>
+      <div class="dash-stat ds-new"><span class="ds-num" id="statNew">0</span><span class="ds-label">New Requests</span></div>
+      <div class="dash-stat ds-confirmed"><span class="ds-num" id="statConfirmed">0</span><span class="ds-label">Confirmed</span></div>
+      <div class="ds-revenue dash-stat"><span class="ds-num" id="statRevenue">£0</span><span class="ds-label">Est. Value</span></div>
+      <div class="dash-stat ds-completed"><span class="ds-num" id="statCompleted">0</span><span class="ds-label">Completed</span></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="dash-filters">
+      <input type="search" id="searchInput" placeholder="Search name, reference, route, phone...">
+      <select id="statusFilter">
+        <option value="">All statuses</option>
+        <option value="New">New</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Completed">Completed</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+      <select id="tripFilter">
+        <option value="">All journeys</option>
+        <option value="Airport Transfer">Airport Transfer</option>
+        <option value="One Way">One Way</option>
+        <option value="Round Trip">Round Trip</option>
+        <option value="By The Hour">By The Hour</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="dash-table-wrap">
+      <table class="dash-table">
+        <thead>
+          <tr>
+            <th>Ref</th>
+            <th>Client</th>
+            <th>Journey</th>
+            <th>Date / Time</th>
+            <th>Vehicle</th>
+            <th>Estimate</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsBody">
+          <tr class="empty-row"><td colspan="8">No bookings yet. Bookings submitted on the website will appear here.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- ===== DETAIL DRAWER ===== -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" id="drawerClose" aria-label="Close">&times;</button>
+  <div class="drawer-content" id="drawerContent"></div>
+</aside>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
